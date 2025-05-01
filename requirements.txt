@@ -1,0 +1,8 @@
+flask>=2.3.3
+opencv-python>=4.8.0.74
+numpy>=1.22.0
+ultralytics>=8.0.196
+pillow>=9.5.0
+requests>=2.31.0
+pyttsx3>=2.90
+langchain>=0.0.350

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indoor Object Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Indoor Object Detection</h1>
+            <p class="subtitle">Powered by YOLOv8</p>
+        </header>
+
+        <div class="main-content">
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="image">Image Mode</button>
+                <button class="mode-btn" data-mode="video">Video Mode</button>
+                <button class="mode-btn" data-mode="webcam">Webcam Mode</button>
+            </div>
+
+            <!-- Image Mode Section -->
+            <div class="mode-section" id="imageMode">
+                <div class="upload-section">
+                    <div class="drop-zone" id="dropZone">
+                        <div class="drop-zone-content">
+                            <img src="{{ url_for('static', filename='images/upload-icon.svg') }}" alt="Upload" id="previewImage">
+                            <p>Drag and drop an image or click to upload</p>
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+
+                    <div class="settings">
+                        <div class="confidence-slider">
+                            <label for="confidenceThreshold">Confidence Threshold:</label>
+                            <input type="range" id="confidenceThreshold" min="0" max="100" value="10">
+                            <span id="confidenceValue">0.10</span>
+                        </div>
+                        <button id="detectButton" class="primary-button" disabled>Detect Objects</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Mode Section -->
+            <div class="mode-section hidden" id="videoMode">
+                <div class="upload-section">
+                    <div class="drop-zone" id="videoDropZone">
+                        <div class="drop-zone-content">
+                            <img src="{{ url_for('static', filename='images/upload-icon.svg') }}" alt="Upload Video">
+                            <p>Drag and drop a video or click to upload</p>
+                        </div>
+                        <input type="file" id="videoInput" accept="video/*" hidden>
+                    </div>
+
+                    <div class="video-controls">
+                        <div class="confidence-slider">
+                            <label for="videoConfidenceThreshold">Confidence Threshold:</label>
+                            <input type="range" id="videoConfidenceThreshold" min="0" max="100" value="10">
+                            <span id="videoConfidenceValue">0.10</span>
+                        </div>
+                        <div class="video-buttons">
+                            <button id="startVideoButton" class="primary-button" disabled>Start Detection</button>
+                            <button id="stopVideoButton" class="secondary-button" disabled>Stop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Webcam Mode Section -->
+            <div class="mode-section hidden" id="webcamMode">
+                <div class="webcam-section">
+                    <div class="webcam-container">
+                        <img id="webcamFeed" alt="Webcam Feed" style="display: none;">
+                    </div>
+
+                    <div class="webcam-controls">
+                        <div class="confidence-slider">
+                            <label for="webcamConfidenceThreshold">Confidence Threshold:</label>
+                            <input type="range" id="webcamConfidenceThreshold" min="0" max="100" value="10">
+                            <span id="webcamConfidenceValue">0.10</span>
+                        </div>
+                        <div class="webcam-buttons">
+                            <button id="startWebcamButton" class="primary-button">Start Webcam</button>
+                            <button id="stopWebcamButton" class="secondary-button" disabled>Stop Webcam</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section" style="display: none;">
+                <div class="result-image-container">
+                    <img id="resultImage" alt="Detection Result">
+                </div>
+                <div class="detection-results">
+                    <h3>Detected Objects</h3>
+                    <div class="results-grid" id="detectionsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
